@@ -1,0 +1,12 @@
+# Site settings
+title: Anna Zhou blog
+email: 
+description: "A Learner in Computer Engineering."
+baseurl: ""
+url: "http://AnnaZhou.github.io"
+twitter_username: annaanna09	
+github_username:  AnnaZhou
+
+# Build settings
+markdown: redcarpet
+permalink: pretty
