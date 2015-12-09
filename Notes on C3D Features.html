@@ -1,0 +1,72 @@
+NOTES ON C3D
+
+September 15, 2015zhongnaLeave a comment
+The C3D project pages:
+http://www.cs.dartmouth.edu/~dutran/c3d/
+The source code:
+https://github.com/facebook/C3D
+
+Download the source code and make:
+cp Makefile.config.example Makefile.config
+make clean
+make
+
+set the paths:
+
+export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/cuda/lib:$HOME/anaconda/lib:/usr/local/lib:/usr/lib
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/cuda/lib/
+
+We tried the C3D feature extraction on video frames using CPU.
+1. prepare the data
+the videos are decoded to frames:
+
+ffmpeg '-i' '/Users/Anna/workspace/C3D/examples/c3d_feature_extraction/UCF11_updated_frm/basketball/v_shooting_25/v_shooting_25_06.mpg' '-filter_complex' 'fps=fps=24.000000' '-q' '5' '-strict' 'experimental' '/Users/Anna/workspace/C3D/examples/c3d_feature_extraction/UCF11_updated_frm/basketball/v_shooting_25/v_shooting_25_06/%06d.jpg' '-threads' '0'
+
+the following input files are needed:
+input_list_frm.txt
+output_list_prefix.txt
+c3d_sport1m_feature_extractor_frm.prototxt
+
+
+array1=("$file_name/ 1 0")
+array2=("$file_name/000001")
+echo $array1 >> input_list_frm.txt
+echo $array2 >> output_list_prefix.txt
+
+2. generate the C3D feature
+run the command line:
+
+GLOG_logtosterr=1 ../../build/tools/extract_image_features.bin prototxt/c3d_sport1m_feature_extractor_frm.prototxt conv3d_deepnetA_sport1m_iter_1900000 -1 50 1 prototxt/output_list_prefix.txt fc7-1 fc6-1 prob
+
+When we set multiple batches, there is an error:
+
+
+F0914 17:45:44.359544 287137792 video_data_layer.cpp:123] Check failed: read_status Testing must not miss any example
+
+A temporal solution is do one batch every time, using shell script to read a batch of files to the input list.
+
+
+for((i=1;i<=2550;i=i+50))
+
+do j=49
+
+num=$(($i+$j))
+
+sed -n ''$i','$num'p' prototxt/input_list_frm1.txt > prototxt/input_list_frm.txt
+sed -n ''$i','$num'p' prototxt/output_list_prefix1.txt > prototxt/output_list_prefix.txt
+
+GLOG_logtosterr=1 ../../build/tools/extract_image_features.bin prototxt/c3d_sport1m_feature_extractor_frm.prototxt conv3d_deepnetA_sport1m_iter_1900000 -1 50 1 prototxt/output_list_prefix.txt fc7-1 fc6-1 prob
+
+done
+
+3.We prefer that the output features are in decimal instead of binary,so modify the file src/caffe/util/image_io.cpp:
+
+
+f = fopen(fn_blob.c_str(), "w");
+...
+fprintf(f,"%d,%d,%d,%d,%d",n,c,l,h,w);
+for(int i=0;i<(n * c * l * h * w);i++)
+{fprintf(f,",%lf",buff[i]);}
+fclose(f);
+
+#
