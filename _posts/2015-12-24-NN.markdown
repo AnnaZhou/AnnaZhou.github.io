@@ -1,9 +1,9 @@
 ---
 layout: post
 comments: true
-title:  "NOTES ON C3D"
-excerpt: "We'll generate C3D features on our own datasets"
-date:   2015-12-09 15:00:00
+title:  "Calculate Forward and Backward Pass on Neural Network"
+excerpt: "We'll calculate forward and backward pass of a two layer neural network"
+date:   2015-12-24 15:00:00
 mathjax: true
 ---
 
