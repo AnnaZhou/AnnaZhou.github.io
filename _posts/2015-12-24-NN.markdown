@@ -15,6 +15,7 @@ We consider a neural network with two inputs, one hidden layer with two neurons 
 
 ```The Forward Pass
 The hidden layer:
+
 <div>
 $$
 h_1=w_1*i_1+w_2*i_2
@@ -28,6 +29,7 @@ $$
 </div>
 
 The output layer:
+
 <div>
 $$
 o_1=w_5*h_1+w_6*h_2
@@ -41,6 +43,7 @@ $$
 </div>
 
 We use the squared error
+
 <div>
 $$
 E=E_{01}+E_{02}=\frac{1}{2}(y_1-o_1)^2+\frac{1}{2}(y_2-o_2)^2
@@ -49,6 +52,7 @@ $$
 
 ```The Backward Pass
 The output layer:
+
 <div>
 $$
 \frac{\partial E}{\partial w_5}=\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial w_5}
@@ -74,6 +78,7 @@ $$
 </div>
 
 The hidden layer:
+
 <div>
 $$
 \frac{\partial E}{\partial w_5}=(\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial h_1}+\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial h_1})*\frac{\partial h_1}{\partial w_1}
