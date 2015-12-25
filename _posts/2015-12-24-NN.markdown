@@ -10,7 +10,7 @@ We consider a neural network with two inputs, one hidden layer with two neurons 
 
 <div class="imgcap">
 <img src="/assets/NN2-2-2.png">
-<div class="thecap" style="text-align:justify"> A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer.</div>
+<div class="thecap" style="text-align:justify"> A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer. 
 </div>
 
 ```The Forward Pass
@@ -20,28 +20,33 @@ $$
 h_1=w_1*i_1+w_2*i_2
 $$
 </div>
+
 <div>
 $$
 h_2=w_3*i_1+w_4*i_2
 $$
 </div>
+
 The output layer:
 <div>
 $$
 o_1=w_5*h_1+w_6*h_2
 $$
 </div>
+
 <div>
 $$
 o_2=w_7*h_1+w_8*h_2
 $$
 </div>
+
 We use the squared error
 <div>
 $$
 E=E_{01}+E_{02}=\frac{1}{2}(y_1-o_1)^2+\frac{1}{2}(y_2-o_2)^2
 $$
 </div>
+
 ```The Backward Pass
 The output layer:
 <div>
@@ -49,6 +54,7 @@ $$
 \frac{\partial E}{\partial w_5}=\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial w_5}
 $$
 </div>
+
 <div>
 $$
 \frac{\partial E}{\partial w_6}=\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial w_6}
@@ -60,11 +66,13 @@ $$
 \frac{\partial E}{\partial w_7}=\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial w_7}
 $$
 </div>
+
 <div>
 $$
 \frac{\partial E}{\partial w_8}=\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial w_8}
 $$
 </div>
+
 The hidden layer:
 <div>
 $$
