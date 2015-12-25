@@ -13,7 +13,8 @@ We consider a neural network with two inputs, one hidden layer with two neurons 
 <div class="thecap" style="text-align:justify"> A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer. 
 </div>
 
-```The Forward Pass
+The Forward Pass
+
 The hidden layer:
 
 <div>
@@ -50,7 +51,8 @@ E=E_{01}+E_{02}=\frac{1}{2}(y_1-o_1)^2+\frac{1}{2}(y_2-o_2)^2
 $$
 </div>
 
-```The Backward Pass
+The Backward Pass
+
 The output layer:
 
 <div>
@@ -81,7 +83,26 @@ The hidden layer:
 
 <div>
 $$
-\frac{\partial E}{\partial w_5}=(\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial h_1}+\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial h_1})*\frac{\partial h_1}{\partial w_1}
+\frac{\partial E}{\partial w_1}=(\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial h_1}+\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial h_1})*\frac{\partial h_1}{\partial w_1}
 $$
 </div>
+
+<div>
+$$
+\frac{\partial E}{\partial w_2}=(\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial h_1}+\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial h_1})*\frac{\partial h_1}{\partial w_2}
+$$
+</div>
+
+<div>
+$$
+\frac{\partial E}{\partial w_3}=(\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial h_2}+\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial h_2})*\frac{\partial h_2}{\partial w_3}
+$$
+</div>
+
+<div>
+$$
+\frac{\partial E}{\partial w_4}=(\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial h_2}+\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial h_2})*\frac{\partial h_2}{\partial w_4}
+$$
+</div>
+
 
