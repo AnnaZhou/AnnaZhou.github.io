@@ -104,5 +104,3 @@ $$
 \frac{\partial E}{\partial w_4}=(\frac{\partial E}{\partial o_1}*\frac{\partial o_1}{\partial h_2}+\frac{\partial E}{\partial o_2}*\frac{\partial o_2}{\partial h_2})*\frac{\partial h_2}{\partial w_4}
 $$
 </div>
-
-
