@@ -13,6 +13,11 @@ We consider a neural network with two inputs, one hidden layer with two neurons 
 <div class="thecap" style="text-align:justify"> A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer. 
 </div>
 
+<div class="imgcap">
+<img src="/assets/NN2-2-2.png">
+<div class="thecap" style="text-align:center">A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer.</div>
+</div>
+
 The Forward Pass
 
 The hidden layer:
