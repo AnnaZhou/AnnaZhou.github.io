@@ -68,14 +68,6 @@ done
 
 3.We prefer that the output features are in decimal instead of binary,so modify the file src/caffe/util/image_io.cpp:
 
-
->f = fopen(fn_blob.c_str(), "w");
->...
-> fprintf(f,"%d,%d,%d,%d,%d",n,c,l,h,w);
->for(int i=0;i<(n * c * l * h * w);i++)
->{fprintf(f,",%lf",buff[i]);}
->fclose(f);
-
 #
 
 
