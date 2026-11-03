@@ -5,12 +5,7 @@ date: 2026-11-03
 categories: [machine-learning, information-theory]
 tags: [ITL, Renyi-entropy, kernels, mutual-information, divergence]
 ---
-<div class="imgcap">
-<img src="/assets/Information Forces_ A Visual Scientific Journey.png">
-<div class="thecap" style="text-align:justify"> A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer. 
-</div>
 
-  
 How can a kernel function turn information-theoretic quantities into forces that guide learning? In a new interactive article, I explore the mathematics of **Information-Theoretic Learning (ITL)**, drawing on José C. Principe's *Information Theoretic Learning: Rényi's Entropy and Kernel Perspectives* (2010).
 
 The article presents five computational experiments:
@@ -30,3 +25,8 @@ The demonstrations include derivations, figures, optimization trajectories, and 
 **[Read the full interactive article →]({{ '/itl-visual-experiments/' | relative_url }})**
 
 The central idea is simple: by estimating information potentials from pairwise kernel evaluations and differentiating them, we can turn entropy, divergence, and mutual information into optimization objectives with interpretable gradient forces.
+
+<div class="imgcap">
+<img src="/assets/Information Forces_ A Visual Scientific Journey.png">
+<div class="thecap" style="text-align:justify"> Information Force Fields. 
+</div>
