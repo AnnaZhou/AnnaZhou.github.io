@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-I am **Anna Z. Zhou**, a PhD student at Mizzou working on Machine Learning.
+My name is **Anna Z. Zhou**, I got my PhD in Electrical and Computer Engineering from University of Missouri, Columbia in July,2026.
