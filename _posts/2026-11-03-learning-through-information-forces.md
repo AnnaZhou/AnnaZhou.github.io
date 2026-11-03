@@ -16,8 +16,11 @@ The article presents five computational experiments:
 4. **Distribution matching:** minimizing Euclidean divergence between kernel density estimates and comparing with Cauchy–Schwarz divergence.
 5. **Quadratic mutual information:** learning a one-dimensional projection that preserves the information in two class labels.
 
-![Information-Theoretic Learning: Five Visual Experiments](/assets/images/learning_through_information_forces.png)
-
+<div class="imgcap">
+<img src="/assets/learning_through_information_forces.png">
+<div class="thecap" style="text-align:justify"> A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer. 
+</div>
+  
 The demonstrations include derivations, figures, optimization trajectories, and results from an executable Python/Colab notebook. In the distribution-matching example, estimated Euclidean divergence decreased from **0.4269 to 0.0304**. In the feature-learning example, estimated quadratic mutual information increased from **0.00738 to 0.11835**. These values describe illustrative synthetic experiments, not benchmark performance.
 
 **[Read the full interactive article →]({{ '/itl-visual-experiments/' | relative_url }})**
