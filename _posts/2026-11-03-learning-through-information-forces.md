@@ -17,7 +17,7 @@ The article presents five computational experiments:
 5. **Quadratic mutual information:** learning a one-dimensional projection that preserves the information in two class labels.
 
 <div class="imgcap">
-<img src="/assets/learning_through_information_forces.png">
+<img src="/assets/Information Forces_ A Visual Scientific Journey.png">
 <div class="thecap" style="text-align:justify"> A Neural Network with two inputs, one hidden layer with two neurons and one two-neuron output layer. 
 </div>
   
