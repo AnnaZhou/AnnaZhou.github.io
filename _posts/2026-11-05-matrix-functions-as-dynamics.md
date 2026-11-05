@@ -6,7 +6,7 @@ categories: [mathematics, numerical-linear-algebra]
 tags: [matrix-functions, matrix-exponential, matrix-logarithm, Frechet-derivative, Python]
 ---
 
-![Matrix Functions as Dynamics — exponential, logarithm, sine, cosine, and numerical methods]({{ '/assets/images/matrix-functions-as-dynamics.png' | relative_url }})
+![Matrix Functions as Dynamics — exponential, logarithm, sine, cosine, and numerical methods]({{ '/assets/matrix-functions-as-dynamics.png' | relative_url }})
 
 How do matrix functions describe **dynamical evolution, oscillation, and sensitivity**? Inspired by Chapters 10–12 of Nicholas J. Higham's *Functions of Matrices*, this visual tutorial connects the matrix exponential, logarithm, cosine, and sine through short mathematical explanations and reproducible Python experiments.
 
