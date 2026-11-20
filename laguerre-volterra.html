@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="An interactive introduction to discrete-time Laguerre basis functions, Volterra kernels, and nonlinear system identification.">
+<title>Laguerre–Volterra Models | Anna Zhou</title>
+<style>
+:root{color-scheme:light;--paper:#f7f6ef;--ink:#192d34;--muted:#486065;--teal:#075e58;--line:#cbd8d1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:1rem/1.65 system-ui,sans-serif}
+header{background:#102e33;color:#f6f7ee;padding:1.2rem max(1.2rem,calc((100vw - 960px)/2)) 3rem}
+header a{color:#a8e5cd}header p{max-width:40rem;margin-bottom:0;color:#dce9df;font-size:1.1rem}
+h1,h2{font-family:Georgia,serif;line-height:1.12;letter-spacing:-.025em}
+h1{font-size:clamp(2.6rem,7vw,5.2rem);margin:2.1rem 0 .7rem}
+h2{font-size:clamp(1.55rem,3vw,2.1rem);margin:0 0 .65rem}
+main{max-width:1000px;margin:auto;padding:2rem 1.2rem 3rem}
+a{color:var(--teal);text-underline-offset:.18em}
+section{margin-bottom:1.6rem}.demo{background:#fff;border:1px solid var(--line);border-radius:14px;padding:clamp(1rem,3vw,1.6rem)}
+.controls,.legend{display:flex;flex-wrap:wrap;gap:.55rem 1.3rem}
+label{display:grid;min-width:12rem;font-weight:600}input{width:100%;accent-color:var(--teal)}
+canvas{display:block;width:100%;height:225px;margin:.6rem 0}
+.legend{margin:0;color:var(--muted);font-size:.9rem}.legend span::before{content:"";display:inline-block;width:.85rem;height:.22rem;margin-right:.35rem;vertical-align:middle;background:var(--swatch)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem;margin-top:1.6rem}.grid section{border-top:1px solid var(--line);padding-top:1rem;margin-bottom:0}
+.formula{font:1.05rem/1.7 Georgia,serif;background:#e8efe9;border-left:3px solid var(--teal);padding:.65rem .85rem;overflow-wrap:anywhere}
+.references{border-top:1px solid var(--line);margin-top:1.8rem;padding-top:1rem}
+.references ul{padding-left:1.3rem;margin-bottom:0}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<a href="/">Anna Zhou</a>
+<h1>Laguerre–Volterra<br>models</h1>
+<p>Represent input history with a small set of filters, then model nonlinear dynamics through products of their outputs.</p>
+</header>
+<main>
+<section class="demo" aria-labelledby="explore">
+<h2 id="explore">Explore the Laguerre basis</h2>
+<div class="controls">
+<label for="pole"><span>Pole <i>a</i> = <output id="pole-value" for="pole">0.70</output></span>
+<input id="pole" type="range" min="0" max="0.95" step="0.01" value="0.70"></label>
+<label for="length"><span>Lag window = <output id="length-value" for="length">40</output> samples</span>
+<input id="length" type="range" min="15" max="100" step="5" value="40"></label>
+</div>
+<canvas id="basis" width="900" height="225" role="img" aria-label="First four discrete-time Laguerre sequences plotted against sample lag.">At zero pole, each mode is a unit impulse at its own lag. As the pole approaches one, the first mode decays more slowly.</canvas>
+<div class="legend" aria-label="Plot legend">
+<span style="--swatch:#00776a">Mode 0</span><span style="--swatch:#a44313">Mode 1</span><span style="--swatch:#4057ab">Mode 2</span><span style="--swatch:#873e78">Mode 3</span>
+</div>
+<p>At <i>a</i> = 0, mode <i>k</i> is a unit impulse at lag <i>k</i>. Increase <i>a</i> to see the first mode retain memory over more samples.</p>
+<noscript>The plot controls require JavaScript.</noscript>
+</section>
+<div class="grid">
+<section aria-labelledby="laguerre">
+<h2 id="laguerre">Laguerre memory</h2>
+<p>The basis sequence ℓ<sub>k</sub>[<i>m</i>] is the causal impulse response of:</p>
+<div class="formula"><i>L</i><sub>k</sub>(<i>z</i>) = √(1 − <i>a</i>²)/(1 − <i>az</i><sup>−1</sup>) · [(<i>z</i><sup>−1</sup> − <i>a</i>)/(1 − <i>az</i><sup>−1</sup>)]<sup><i>k</i></sup>, &nbsp; |<i>a</i>| &lt; 1.</div>
+<p>Mode zero is a normalized exponential, ℓ<sub>0</sub>[<i>m</i>] = √(1 − <i>a</i>²)<i>a</i><sup><i>m</i></sup>. The modes are orthonormal over the full lag axis. A finite lag window can truncate their tails.</p>
+</section>
+<section aria-labelledby="volterra">
+<h2 id="volterra">Volterra interactions</h2>
+<p>Let <b>v</b><sub>t</sub> = [<i>u</i>[<i>t</i>], …, <i>u</i>[<i>t</i> − <i>M</i> + 1]]<sup>T</sup>. A second-order Volterra model combines linear convolution with products of delayed samples:</p>
+<div class="formula">ŷ[<i>t</i>] = <i>h</i><sub>0</sub> + <b>h</b><sub>1</sub><sup>T</sup><b>v</b><sub>t</sub> + <b>v</b><sub>t</sub><sup>T</sup><b>H</b><sub>2</sub><b>v</b><sub>t</sub>.</div>
+<p>The kernel entry <i>H</i><sub>2</sub>[<i>i</i>,<i>j</i>] weights the interaction between lags <i>i</i> and <i>j</i>. A cross-term coefficient of 0.30 corresponds to two symmetric entries of 0.15. Higher orders use products of more delayed samples.</p>
+</section>
+<section aria-labelledby="combine">
+<h2 id="combine">Laguerre–Volterra expansion</h2>
+<p>Filter the history with <i>B</i><sub>km</sub> = ℓ<sub>k</sub>[<i>m</i>] to obtain <b>x</b><sub>t</sub> = <b>Bv</b><sub>t</sub>. Approximate the quadratic kernel as <b>H</b><sub>2</sub> ≈ <b>B</b><sup>T</sup><b>QB</b>:</p>
+<div class="formula">ŷ[<i>t</i>] = <i>b</i> + <b>c</b><sup>T</sup><b>x</b><sub>t</sub> + <b>x</b><sub>t</sub><sup>T</sup><b>Qx</b><sub>t</sub>.</div>
+<p>With fixed filters, the nonlinear model is linear in its readout coefficients. Using <i>K</i> basis functions replaces <i>M</i> raw lags per input channel with <i>K</i> filter outputs.</p>
+</section>
+<section aria-labelledby="robotics">
+<h2 id="robotics">Example in robotics</h2>
+<p>For AntMaze dynamics, apply the filters to each of the eight action channels. This produces 8<i>K</i> action-history features. A vector-valued readout can combine them with state features to predict the next state increment. Quadratic products can capture interactions across joint commands and temporal patterns.</p>
+</section>
+</div>
+<section class="references" aria-labelledby="references">
+<h2 id="references">References</h2>
+<ul>
+<li>P. W. Broome. <a href="https://doi.org/10.1145/321264.321265">Discrete orthonormal sequences</a>. <i>J. ACM</i>, 1965.</li>
+<li>B. Wahlberg. <a href="https://doi.org/10.1109/9.76361">System identification using Laguerre models</a>. <i>IEEE Trans. Autom. Control</i>, 1991.</li>
+<li>S. Boyd and L. O. Chua. <a href="https://doi.org/10.1109/TCS.1985.1085649">Fading memory and the problem of approximating nonlinear operators with Volterra series</a>. <i>IEEE Trans. Circuits Syst.</i>, 1985.</li>
+<li>V. Z. Marmarelis. <a href="https://doi.org/10.1007/BF02368639">Identification of nonlinear biological systems using Laguerre expansions of kernels</a>. <i>Ann. Biomed. Eng.</i>, 1993.</li>
+</ul>
+</section>
+</main>
+<script>
+const canvas = document.querySelector('#basis');
+const pole = document.querySelector('#pole');
+const length = document.querySelector('#length');
+const colors = ['#00776a', '#a44313', '#4057ab', '#873e78'];
+
+function laguerre(a, count) {
+  const modes = [Array.from({length: count}, (_, n) => Math.sqrt(1 - a * a) * a ** n)];
+  for (let k = 1; k < colors.length; k++) {
+    const previous = modes[k - 1];
+    const next = [];
+    for (let n = 0; n < count; n++) {
+      next.push(a * (next[n - 1] ?? 0) + (previous[n - 1] ?? 0) - a * previous[n]);
+    }
+    modes.push(next);
+  }
+  return modes;
+}
+
+function draw() {
+  const a = Number(pole.value);
+  const count = Number(length.value);
+  document.querySelector('#pole-value').value = a.toFixed(2);
+  document.querySelector('#length-value').value = count;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const scale = window.devicePixelRatio || 1;
+  canvas.width = Math.round(width * scale);
+  canvas.height = Math.round(height * scale);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+  const x = n => 42 + n / (count - 1) * (width - 58);
+  const y = v => 12 + (1 - v) * (height - 45) / 2;
+  ctx.font = '12px system-ui';
+  ctx.fillStyle = '#486065';
+  ctx.textAlign = 'right';
+  for (const value of [-1, -0.5, 0, 0.5, 1]) {
+    ctx.strokeStyle = value === 0 ? '#809b96' : '#e0e8e2';
+    ctx.beginPath();
+    ctx.moveTo(x(0), y(value));
+    ctx.lineTo(x(count - 1), y(value));
+    ctx.stroke();
+    ctx.fillText(value, x(0) - 7, y(value) + 4);
+  }
+  ctx.textAlign = 'center';
+  for (const n of [0, Math.round((count-1)/2), count-1]) {
+    ctx.fillText(n, x(n), height - 16);
+  }
+  ctx.fillText('Lag (samples)', x((count-1)/2), height - 2);
+  laguerre(a, count).forEach((mode, k) => {
+    ctx.strokeStyle = colors[k];
+    ctx.lineWidth = 1.7;
+    ctx.beginPath();
+    mode.forEach((value, n) => {
+      if (n === 0) ctx.moveTo(x(n), y(value));
+      else ctx.lineTo(x(n), y(value));
+    });
+    ctx.stroke();
+  });
+}
+
+pole.addEventListener('input', draw);
+length.addEventListener('input', draw);
+window.addEventListener('resize', draw);
+draw();
+</script>
+</body>
+</html>
